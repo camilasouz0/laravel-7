@@ -28,11 +28,6 @@ class UsersController extends Controller
         $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $users = $this->repository->all();
@@ -41,30 +36,20 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
     public function store(UserCreateRequest $request)
     {
-        $request = $this->service->store($request->all());
-        $usuario = $request['success'] ? $request['data'] : null;
         
-        /* dd($request); */
+        $request = $this->service->store($request->all());
+        $users = $request['success'] ? $request['data'] : null;
+        
+        
 
         session()->flash('success', [
             'success'  => $request['success'],
             'messages' => $request['messages']
         ]);         
         
-        return view('user.index', [
-            'usuario' => $usuario,
-        ]);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -155,16 +140,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $request = $this->service->destroy($id);
+        /* $usuario = $request['success'] ? $request['data'] : null; */
+        
+        /* dd($request); */
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'messages' => 'User deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('messages', 'User deleted.');
+        session()->flash('success', [
+            'success'  => $request['success'],
+            'messages' => $request['messages']
+        ]);         
+        
+        return redirect()->route('user.index');
     }
 }
