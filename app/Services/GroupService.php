@@ -30,7 +30,7 @@ class GroupService
                 'messages' => "Grupo cadastrado",
                 'data' => $group,
             ];
-            dd($group); 
+            /* dd($group); */ 
             
         } 
         catch (Exception $e) 
@@ -41,8 +41,37 @@ class GroupService
                 case QueryException::class;     return ['success' => false, 'messages' => $e->getMessage()];
                 case ValidatorException::class; return ['success' => false, 'messages' => $e->getMessageBag()];
                 case Exception::class;          return ['success' => false, 'messages' => $e->getMessage()];
-                default;                        return ['success' => false, 'messages' => $e->get_class($e)];
+                default;                        return ['success' => false, 'messages' => get_class($e)];
             }          
         }
+    }
+
+    public function userStore($group_id, $data)
+    {
+        try 
+        {         
+            $group = $this->repository->find($group_id);
+            $user_id = $data['user_id'];
+
+            $group->users()->attach($user_id);
+
+            return[
+                'success' => true,
+                'messages' => "Usuário relacionado com sucesso!",
+                'data' => $group,
+            ];
+            
+        } 
+        catch (Exception $e) 
+        {
+            switch (get_class($e)) 
+            {
+                case QueryException::class;     return ['success' => false, 'messages' => $e->getMessage()];
+                case ValidatorException::class; return ['success' => false, 'messages' => $e->getMessageBag()];
+                case Exception::class;          return ['success' => false, 'messages' => $e->getMessage()];
+                default;                        return ['success' => false, 'messages' => get_class($e)];
+            }          
+        }
+        
     }
 }

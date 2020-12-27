@@ -25,40 +25,7 @@
     @include('templates.formulario.password',['input' => 'password', 'attributes' => ['placeholder' => 'SENHA']])
     @include('templates.formulario.submit',['input' => 'Cadastrar'])
 {!! Form::close() !!}
-
-        <table class="default-table">
-            <thead>
-                <tr>
-                    <td># </td>
-                    <td>CPF</td>
-                    <td>Nome</td>
-                    <td>Telefone</td>
-                    <td>Nacimento</td>
-                    <td>E-mail</td>
-                    <td>Status</td>
-                    <td>Permissão</td>
-                    <td>Menu</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->cpf }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->phone }}</td>
-                        <td>{{ $user->birth }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->status }}</td>
-                        <td>{{ $user->permission }}</td>
-                        <td>
-                            {!! Form::open(['route' => ['user.destroy',$user->id], 'method' => 'DELETE' ])!!}
-                            {!! Form::submit('remover')!!}
-                            {!! Form::close()!!}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+ 
+    {{-- @include('user.list', ['user_list' => $group->users ]) --}}
 
 @endsection

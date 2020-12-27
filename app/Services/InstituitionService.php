@@ -39,7 +39,7 @@ class InstituitionService
                 case QueryException::class;     return ['success' => false, 'messages' => $e->getMessage()];
                 case ValidatorException::class; return ['success' => false, 'messages' => $e->getMessageBag()];
                 case Exception::class;          return ['success' => false, 'messages' => $e->getMessage()];
-                default;                        return ['success' => false, 'messages' => $e->get_class($e)];
+                default;                        return ['success' => false, 'messages' => get_class($e)];
             }          
         }
     }

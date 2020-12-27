@@ -17,27 +17,30 @@ class User extends Authenticatable
     protected $fillable = ['cpf', 'name', 'phone', 'birth', 'gender','notes', 'email', 'password', 'status', 'permission'];
     protected $hidden = ['password', 'remember_token'];
 
+    public function groups() {
+        // RELACIONAMENTO N:N
+        return $this->belongsToMany(Group::class,'user_groups');    
+    }
+
     public function setPasswordAttribute($value){
         $this->attributes['password'] = env('PASSWORD_HASH') ? bcrypt($value) : $value;
     }
 
-    /* protected $casts = ['email_verified_at' => 'datetime',]; */
-
-    public function getCpfAttribute()
+    public function getFormattedCpfAttribute()
     {
         $cpf = $this->attributes['cpf'];
 
         return substr($cpf, 0, 3).'.'.substr($cpf, 4, 3).'.'.substr($cpf, 8, 3).'-'.substr($cpf, -2);//posições do cpf
     }
 
-    /* public function getPhoneAttribute()
+    public function getFormattedPhoneAttribute()
     {
         $phone = $this->attributes['phone'];
 
-        return substr($phone, 0, 2).substr($phone, 3, 6)."-".substr($phone, -4);
-    } */
+        return "(".substr($phone, 0, 2).")".substr($phone, 2, 4)."-".substr($phone, -4);
+    }
 
-    public function getBirthAttribute()
+    public function getFormattedBirthAttribute()
     {
         $birth = explode('-', $this->attributes['birth']);
         if(count($birth) != 3)
