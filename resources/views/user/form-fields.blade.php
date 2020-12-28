@@ -1,0 +1,5 @@
+@include('templates.formulario.input',['label' => 'cpf','input' => 'cpf', 'attributes' => ['placeholder' => 'CPF']])
+@include('templates.formulario.input',['input' => 'name', 'attributes' => ['placeholder' => 'NOME']])
+@include('templates.formulario.input',['input' => 'phone', 'attributes' => ['placeholder' => 'TELEFONE']])
+@include('templates.formulario.input',['input' => 'email', 'attributes' => ['placeholder' => 'E-MAIL']])
+@include('templates.formulario.password',['input' => 'password', 'attributes' => ['placeholder' => 'SENHA']])
