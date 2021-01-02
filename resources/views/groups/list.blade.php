@@ -17,11 +17,11 @@
              <td>{{ $group->instituition->name }}</td>
              <td>{{ $group->owner->name }}</td>
              <td>
-                {!! Form::open(['route' => ['group.destroy', $group->id], 'method' => 'delete' ]) !!}
+                {!! Form::open(['route' => ['group.destroy', $group->id], 'method' => 'delete', 'class' => 'form-botao']) !!}
                 {!! Form::submit("Remover") !!}
                 {!! Form::close() !!}
-               <a href="{{ route('group.show', $group->id) }}">Detalhes</a>
-               <a href="{{ route('group.edit', $group->id) }}">Editar</a>
+               <a class="botao-detalhes" href="{{ route('group.show', $group->id) }}">Detalhes</a>
+               <a class="botao-editar" href="{{ route('group.edit', $group->id) }}">Editar</a>
              </td>
           </tr>    
        @endforeach
