@@ -13,16 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
-
-Route::get('/', ['uses' => 'Controller@homepage']);
+Route::get('/', ['uses' => 'LoginController@index']);
 Route::get('/cadastro', ['uses' => 'Controller@cadastrar']);
 
+Route::get('/welcome', ['uses' =>  'LoginController@welcome']);
+
+
 //rota login
-Route::get('/login', ['uses' => 'Controller@fazerLogin']);
-Route::post('/login', ['as' => 'user.login', 'uses' => 'DashboardController@auth']);
+Route::get('/login', ['uses' => 'LoginController@index']);
+Route::post('/login', ['as' => 'user.login', 'uses' => 'LoginController@auth']);
 Route::get('/dashboard', ['as' => 'user.dashboard', 'uses' => 'DashboardController@index']);
 
 //Route::get('user', ['as' => 'user.index', 'uses' => 'UsersController@index']);
